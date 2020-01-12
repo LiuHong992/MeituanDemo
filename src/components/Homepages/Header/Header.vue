@@ -165,7 +165,6 @@ export default {
   width: 100%;
   min-width: 1080px;
   height: 40px;
-  background-color: #f8f8f8;
   font-size: 12px;
   .headercontent {
     width: 1080px;
@@ -276,7 +275,7 @@ export default {
           display: flex;
           width: 1080px;
           // height: 295px;
-          padding: 30px 36px 36px 47px;
+          padding: 30px 30px 36px 37px;
           background-color: white;
           border-top: 1px solid #f8f8f8;
           box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);

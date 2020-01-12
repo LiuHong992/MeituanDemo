@@ -86,7 +86,7 @@ export default {
 <style scoped lang='scss'>
 // 公共样式
 .common {
-  margin-right: 47px;
+  margin-right: 44px;
   text-align: center;
   h5 {
     font-size: 14px;
@@ -97,7 +97,7 @@ export default {
   .commoncontent {
     flex-wrap: wrap;
     .model {
-      width: 77px;
+      width: 74px;
       padding: 5px 0;
       &:hover {
         cursor: pointer;
@@ -109,15 +109,22 @@ export default {
 // 酒店旅馆
 .hotel {
   width: 243px;
+  margin-right: 12px;
 }
 // 吃美食
 .foods {
-  width: 154px;
+  width: 155px;
+  .commoncontent{
+    .model{
+      width: 66px;
+    }
+  }
+
 }
 // 看电影
 .movies {
   width: 90px;
-  margin-right: 87px;
+  margin-right: 77px;
   .commoncontent {
     .moviemodel {
       width: 100%;
