@@ -86,7 +86,7 @@ export default {
 <style scoped lang='scss'>
 // 公共样式
 .common {
-  margin-right: 44px;
+  margin-right: 47px;
   text-align: center;
   h5 {
     font-size: 14px;
@@ -109,7 +109,6 @@ export default {
 // 酒店旅馆
 .hotel {
   width: 243px;
-  margin-right: 12px;
 }
 // 吃美食
 .foods {
@@ -124,7 +123,7 @@ export default {
 // 看电影
 .movies {
   width: 90px;
-  margin-right: 77px;
+  margin-right: 107px;
   .commoncontent {
     .moviemodel {
       width: 100%;

@@ -69,7 +69,7 @@ export default {
     // 搜索建议
     // 搜索框搜索后显示的内容
     Searchsuggest(cityName, keyword) {
-        return service.req(`/results?city=${cityName}&keyword=${keyword}`)
+        return service.req(`/searchTop?city=${cityName}&input=${keyword}`)
     },
 
     // 商铺详情
@@ -77,5 +77,8 @@ export default {
     Products(shopname, cityName) {
         return service.req(`/products?keyword=${shopname}&city=${cityName}`)
     },
-
+    // 根据关键词搜索
+    Result(cityName,keyword) {
+        return service.req(`/results?city=${cityName}&keyword=${keyword}`)
+    }
 }

@@ -4,22 +4,55 @@
     <headers></headers>
     <!-- 头部搜索栏和导航栏 -->
     <searchtop></searchtop>
+    <!-- 分类和轮播图 -->
+    <classfywheel :menus="menus"></classfywheel>
   </div>
 </template>
 
 <script>
 import headers from "../components/Homepages/Header/Header";
 import searchtop from '../components/Homepages/Searchtop/Searchtop'
+import classfywheel from '../components/Homepages/Classfywheel/Classfywheel'
 export default {
   data() {
-    return {};
+    return {
+      // 接收分类总数据的数组
+      menus:[],
+      // 颜色数组
+      colors:[
+        '#FF8200','#FFB500','#9B5E3E','#FFB500','#FF3D00','#03A9F4',
+        '#00BF96','#00BF96','#FF4081','#FF4081','#FF4081','#03A9F4',
+        '#00BF96','#00BF96','#03A9F4','#00BF96'
+      ]
+    };
   },
   components: {
     headers,
-    searchtop
+    searchtop,
+    classfywheel
   },
-  methods: {},
-  mounted() {},
+  methods: {
+    // 获取分类数据
+    getClassfy() {
+      this.$api.getAllclassfy().then(res => {
+        if(res.code === 200){
+          this.menus = res.data.menu
+          this.colors.map((item0,index0)=>{
+            this.menus.map((item,index) => {
+              if(index0 === index){
+                item.color=item0
+              }
+            })
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  mounted() {
+    this.getClassfy()
+  },
   watch: {},
   computed: {}
 };

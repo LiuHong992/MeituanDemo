@@ -77,7 +77,7 @@
         >
           <span>网站导航</span>
           <!-- 隐藏的导航栏 -->
-          <guide class="guides" v-show="num===4">123</guide>
+          <guide class="guides flex" v-show="num===4">123</guide>
         </div>
       </div>
     </div>
@@ -104,9 +104,10 @@ export default {
       this.$api
         .getPositions()
         .then(res => {
-          this.$store.state.citys = JSON.parse(res.data).city.slice(0, -1);
-          // sessionStorage.setItem('nowcity',this.$store.state.citys)
-          this.getNearcity();
+          if (res.code === 200) {
+            this.$store.state.citys = JSON.parse(res.data).city.slice(0, -1);
+            this.getNearcity();
+          }
         })
         .catch(err => {
           console.log(err);
@@ -117,7 +118,9 @@ export default {
       this.$api
         .getCitymain(this.$store.state.citys)
         .then(res => {
-          this.nearcitys = res.data.areas;
+          if (res.code === 200) {
+            this.nearcitys = res.data.areas;
+          }
         })
         .catch(err => {
           console.log(err);
@@ -167,7 +170,7 @@ export default {
   height: 40px;
   font-size: 12px;
   .headercontent {
-    width: 1080px;
+    width: 1190px;
     min-width: 1080px;
     height: 100%;
     margin: 0 auto;
@@ -244,6 +247,7 @@ export default {
           position: absolute;
           top: 40px;
           right: 0;
+          z-index: 99;
           width: 100%;
           padding: 0;
           background-color: white;
@@ -272,10 +276,9 @@ export default {
           position: absolute;
           top: 40px;
           right: 0;
-          display: flex;
-          width: 1080px;
-          // height: 295px;
-          padding: 30px 30px 36px 37px;
+          z-index:99;
+          width: 1200px;
+          padding: 30px 36px 36px 47px;
           background-color: white;
           border-top: 1px solid #f8f8f8;
           box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);

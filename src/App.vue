@@ -37,4 +37,12 @@ body {
 .textalign{
   text-align: center;
 }
+// 顶部搜索框padding
+.searchbottom{
+  padding-bottom: 35px;
+}
+// 居中显示
+.center{
+  margin: 0 auto;
+}
 </style>
