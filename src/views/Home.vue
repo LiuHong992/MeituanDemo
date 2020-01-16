@@ -6,6 +6,10 @@
     <searchtop></searchtop>
     <!-- 分类和轮播图 -->
     <classfywheel :menus="menus"></classfywheel>
+    <!-- 有格调 -->
+    <styles></styles>
+    <!-- 底部 -->
+    <footers></footers>
   </div>
 </template>
 
@@ -13,6 +17,8 @@
 import headers from "../components/Homepages/Header/Header";
 import searchtop from '../components/Homepages/Searchtop/Searchtop'
 import classfywheel from '../components/Homepages/Classfywheel/Classfywheel'
+import styles from '../components/Homepages/Style/Style'
+import footers from '../components/Homepages/Footers/Footers'
 export default {
   data() {
     return {
@@ -29,7 +35,9 @@ export default {
   components: {
     headers,
     searchtop,
-    classfywheel
+    classfywheel,
+    styles,
+    footers
   },
   methods: {
     // 获取分类数据

@@ -224,7 +224,8 @@ export default {
           position: absolute;
           top: 40px;
           left: 0;
-          width: 440px;
+          z-index:99;
+          width: 470px;
           padding: 10px;
           background-color: white;
           border-bottom-right-radius: 4px;

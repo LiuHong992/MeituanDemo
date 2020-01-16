@@ -19,8 +19,8 @@
         </div>
         <!-- 登录注册按钮（插槽） -->
         <div class="login flex" v-if="users === ''">
-          <span class="splogin">立即登录</span>
-          <span class="spregister">注册</span>
+          <span class="splogin" @click="$goto('/login')">立即登录</span>
+          <span class="spregister" @click="$goto('/register')">注册</span>
         </div>
         <div class="login" v-else>{{users}}</div>
       </div>
@@ -166,7 +166,6 @@ export default {
 <style scoped lang='scss'>
 .headers {
   width: 100%;
-  min-width: 1080px;
   height: 40px;
   font-size: 12px;
   .headercontent {
