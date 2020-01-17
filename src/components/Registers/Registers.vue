@@ -18,7 +18,7 @@
       <!-- 短信动态码 -->
       <div class="register-msgcode register-common">
         <FormItem label="短信动态码" prop="msgcode">
-          <Input v-model="formCustom.msgcode" placeholder="输入短信动态码"></Input>
+          <Input v-model="formCustom.msgcode" placeholder="输入短信动态码" />
         </FormItem>
       </div>
       <!-- 创建密码 -->
@@ -35,8 +35,8 @@
       </div>
       <!-- 确认密码 -->
       <div class="register-pwdagain register-common">
-        <FormItem label="Confirm" prop="passwdCheck">
-          <Input type="password" v-model="formCustom.passwdCheck"/>
+        <FormItem label="确认密码" prop="passwdCheck">
+          <Input type="password" v-model="formCustom.passwdCheck" placeholder="请再次输入密码" />
         </FormItem>
       </div>
     </Form>
@@ -74,8 +74,22 @@ export default {
         if (value.length < 6) {
           callback(new Error("请输入至少6位数的密码"));
         }
+        if (this.formCustom.passwdCheck !== "") {
+          // 对第二个密码框单独验证
+          this.$refs.formCustom.validateField("passwdCheck");
+        }
+        callback();
       }
       callback();
+    };
+    const validatePassCheck = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.formCustom.passwd) {
+        callback(new Error("两次输入的密码不一致！"));
+      } else {
+        callback();
+      }
     };
     return {
       phoneflag: false,
@@ -86,12 +100,14 @@ export default {
       formCustom: {
         phone: "",
         msgcode: "",
-        password: ""
+        password: "",
+        passwdCheck: ""
       },
       ruleCustom: {
         phone: [{ validator: validatePhone, trigger: "blur" }],
         msgcode: [{ validator: validateMsgcode, trigger: "blur" }],
-        password: [{ validator: validatePassword, trigger: "blur" }]
+        password: [{ validator: validatePassword, trigger: "blur" }],
+        passwdCheck: [{ validator: validatePassCheck, trigger: "blur" }]
       }
     };
   },
