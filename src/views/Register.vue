@@ -1,5 +1,6 @@
 <template>
  <div>
+   <!-- 头部 -->
    <div class="header-mini">
      <div class="header-mini-content flex between">
        <div class="logoimg"></div>
@@ -9,18 +10,21 @@
        </div>
      </div>
    </div>
+   <!-- 主体部分 -->
+   <registers></registers>
  </div>
 </template>
 
 <script>
+import registers from '../components/Registers/Registers';
  export default {
    data () {
      return {
-
+       
      }
    },
    components: {
-
+      registers
    },
    methods: {
 

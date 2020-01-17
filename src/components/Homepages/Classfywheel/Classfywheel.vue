@@ -82,10 +82,10 @@
             </div>
             <p class="pmsg">Hi！你好</p>
             <!-- 登录注册 -->
-            <div class="btnlogin">
+            <div class="btnlogin" @click="$goto('/register')">
               <span>注册</span>
             </div>
-            <div class="btnlogin">
+            <div class="btnlogin" @click="$goto('/login')">
               <span>立即登录</span>
             </div>
           </div>

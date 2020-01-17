@@ -24,7 +24,7 @@
        <!-- 标签 -->
        <div class="stags textover">{{item.type}}</div>
        <!-- 价格和地址 -->
-       <div class="priceadd flex">
+       <div class="priceadd flex between">
           <div v-if="item.biz_ext.cost.length===0">暂无商品价格</div>
           <div class="prices" v-else>
             <span class="unit">￥</span>
@@ -33,7 +33,7 @@
           </div>
           <!-- 地址 -->
           <div class="address">
-            {{}}
+            {{item.adname}}
           </div>
        </div>
      </div>
@@ -84,22 +84,22 @@
    methods: {
     //  循环请求数据方法
     getStyles() {
+      let a = 0
       this.upbars.map((item,index) => {
         // console.log(this.$store.state.citys)
         // console.log(item.searchs)
         // setTimeout(() => {
-        let a = 0
-        if(a === 0){
          this.$api.Result(this.$store.state.citys,item.searchs).then(res => {
           //  console.log(res)
-          this.sixinfo = res.data.pois.splice(0,6)
-          this.styleArr.push(this.sixinfo)
           // console.log(this.styleArr)
-          a+=1
+          // if(a === index){
+            this.sixinfo = res.data.pois.splice(0,6)
+            this.styleArr.push(this.sixinfo)
+          //   a++
+          // }
           }).catch(err => {
           console.log(err)
           })
-        }
         //  },300)
         })
 
@@ -214,10 +214,6 @@
           .mainnum{
             font-size:22px;
           }
-        }
-        // 地址
-        .address{
-          text-align:right;
         }
       }
     }
