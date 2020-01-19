@@ -9,7 +9,6 @@
 //     //   // box-shadow: none !important;
 //     // }
 //   }
-
 //   .ivu-input-group-append,
 //   .ivu-input-group-prepend {
 //     width: 80px !important;
@@ -21,16 +20,46 @@
 //       box-shadow: none !important;
 //       border: none !important;
 //     }
-
 //     i {
 //       font-size: 24px !important;
 //       color: black;
 //     }
 //   }
 // }
-.register-content{
-  .ivu-input{
-    width: 260px !important;
-    height: 36px !important;
-  }
+.register-content {
+    .ivu-input {
+        width: 260px !important;
+        height: 36px !important;
+    }
+    .ivu-btn-warning {
+        color: black;
+        font-weight: 700;
+        &:hover {
+            color: black;
+            background-color: #FF9900;
+        }
+    }
+    .ivu-form-item-error-tip {
+        left: 265px !important;
+        top: 5px !important;
+        width: 168px !important;
+    }
+}
+
+// 登录
+.login-bypassword {
+    .ivu-input {
+        margin-top: 10px;
+    }
+    .ivu-form-item-content {
+        margin-left: 0 !important;
+    }
+    .ivu-form-item {
+        margin-bottom: 10px;
+    }
+    .ivu-form-item-error-tip {
+        top: 12px !important;
+        left: 272px !important;
+        width: 120px !important;
+    }
 }

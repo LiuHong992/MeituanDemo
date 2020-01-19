@@ -8,6 +8,7 @@
           <span>{{city}}</span>
         </div>
         <div class="changecity" @click="goTocity">切换城市</div>
+        <!-- 附近城市 -->
         <div class="nearcity">
           [
           <span
@@ -22,7 +23,11 @@
           <span class="splogin" @click="$goto('/login')">立即登录</span>
           <span class="spregister" @click="$goto('/register')">注册</span>
         </div>
-        <div class="login" v-else>{{users}}</div>
+        <!-- 登录后显示用户信息 -->
+        <div class="login login-after" v-else>
+          <span class="splogin">{{users.username}}</span>
+          <span class="spregister" @click="edit">退出</span>
+        </div>
       </div>
       <!-- 头部右边 -->
       <div class="navright flex">
@@ -90,6 +95,7 @@ export default {
   data() {
     return {
       users: "",
+      // 接收附近城市数组
       nearcitys: [],
       // 动态添加样式参数
       num: 0
@@ -132,6 +138,13 @@ export default {
     },
     // 跳转定位主页面
     goTocity() {},
+    // 退出按钮
+    edit() {
+      this.users = "";
+      localStorage.setItem("userinfo", this.users);
+      // 跳转后刷新页面
+      this.$router.go(0);
+    },
     // 头部鼠标移入添加样式
     addClass(count) {
       this.num = count;
@@ -150,8 +163,8 @@ export default {
       this.getNearcity();
     }
     // 获取用户名
-    if (localStorage.getItem("useres")) {
-      this.users = JSON.parse(localStorage.getItem("useres"));
+    if (localStorage.getItem("userinfo")) {
+      this.users = JSON.parse(localStorage.getItem("userinfo"));
     }
   },
   watch: {},
@@ -178,8 +191,8 @@ export default {
       height: 100%;
       line-height: 40px;
       // 定位
-      .location {
-      }
+      // .location {
+      // }
       // 切换城市
       .changecity {
         height: 16px;
@@ -221,6 +234,13 @@ export default {
             cursor: pointer;
             color: #fe8c00;
           }
+        }
+      }
+      // 登录后显示的用户信息
+      .login-after {
+        margin-left: 15px;
+        span {
+          margin-left: 8px;
         }
       }
     }
@@ -275,7 +295,7 @@ export default {
           position: absolute;
           top: 40px;
           right: 0;
-          z-index:99;
+          z-index: 99;
           width: 1200px;
           padding: 30px 36px 36px 47px;
           background-color: white;

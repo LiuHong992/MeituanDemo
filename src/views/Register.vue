@@ -12,6 +12,15 @@
     </div>
     <!-- 主体部分 -->
     <registers></registers>
+    <!-- 底部 -->
+    <div class="footer-mini textalign">
+      <p>
+        ©
+        <span @click="$goto('/')">meituan.com</span>
+        <span>京ICP证070791号</span>
+        <span>京公网安备11010502025545号</span>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -32,6 +41,7 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+// 头部
 .header-mini {
   width: 100%;
   min-width: 1080px;
@@ -68,6 +78,21 @@ export default {
         &:hover {
           cursor: pointer;
         }
+      }
+    }
+  }
+}
+// 底部
+.footer-mini {
+  border: 1px solid #eee;
+  padding-top: 20px;
+  p {
+    color: #999;
+    font-size: 13px;
+    span {
+      margin-right: 8px;
+      &:hover {
+        cursor: pointer;
       }
     }
   }

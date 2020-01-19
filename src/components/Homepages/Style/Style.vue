@@ -181,6 +181,11 @@
       width:33.3%;
       height:314px;
       padding:10px;
+      transition: all .5s;
+      &:hover{
+        cursor: pointer;
+        background-color: #F4F4F4;
+      }
       .stylesimg{
         width:100%;
         height:208px;

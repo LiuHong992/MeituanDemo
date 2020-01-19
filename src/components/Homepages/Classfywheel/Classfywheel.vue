@@ -73,23 +73,7 @@
         <div class="lifes" v-if="showImg">
           <img src="//p0.meituan.net/codeman/e473bb428f070321269b23370ff02ba956209.jpg" alt />
         </div>
-        <!-- 登录注册(未登录状态) -->
-        <div class="lregister">
-          <div class="defalut">
-            <!-- 默认头像 -->
-            <div class="defaultimg">
-              <img src="//s0.meituan.net/bs/fe-web-meituan/e350c4a/img/avatar.jpg" alt />
-            </div>
-            <p class="pmsg">Hi！你好</p>
-            <!-- 登录注册 -->
-            <div class="btnlogin" @click="$goto('/register')">
-              <span>注册</span>
-            </div>
-            <div class="btnlogin" @click="$goto('/login')">
-              <span>立即登录</span>
-            </div>
-          </div>
-        </div>
+        <logininfo></logininfo>
       </div>
       <!-- 下半部分 -->
       <div class="downbar flex">
@@ -123,6 +107,7 @@
 </template>
 
 <script>
+import logininfo from "./Logininfo/Logininfo";
 export default {
   data() {
     return {
@@ -137,28 +122,28 @@ export default {
       // 分类导航栏数据
       bavcontent: [
         {
-          msg:"美团外卖",
-          color:'#fbc700'
+          msg: "美团外卖",
+          color: "#fbc700"
         },
         {
-          msg:"猫眼电影",
-          color:'#ed1e24'
+          msg: "猫眼电影",
+          color: "#ed1e24"
         },
         {
-          msg:"美团酒店",
-          color:'#f04d4e'
+          msg: "美团酒店",
+          color: "#f04d4e"
         },
         {
-          msg:"民宿/公寓",
-          color:'#fdc411'
+          msg: "民宿/公寓",
+          color: "#fdc411"
         },
         {
-          msg:"商家入驻",
-          color:'#fe8c00'
+          msg: "商家入驻",
+          color: "#fe8c00"
         },
         {
-          msg:"美团公益",
-          color:'#f04d4e'
+          msg: "美团公益",
+          color: "#f04d4e"
         }
       ],
       // 隐藏盒子的显示与隐藏
@@ -172,8 +157,8 @@ export default {
       // 休闲生活图片的显示
       showImg: true,
       // 轮播图上方导航栏文字变色参数
-      flags:false,
-      num:0
+      flags: false,
+      num: 0
     };
   },
   props: {
@@ -182,7 +167,9 @@ export default {
       default: () => []
     }
   },
-  components: {},
+  components: {
+    logininfo
+  },
   methods: {
     // 弹出框显示
     changeFlag(items) {
@@ -206,12 +193,12 @@ export default {
       }, 10);
     },
     changeS(idx) {
-      this.num = idx
-      this.flags = true
+      this.num = idx;
+      this.flags = true;
     },
     changeF() {
-      this.flags = false
-    },
+      this.flags = false;
+    }
   },
   mounted() {
     // 当浏览器宽度小于1190时休闲生活图片隐藏
@@ -302,7 +289,7 @@ export default {
         .hcontentmodel {
           // 标题
           .htitle {
-            margin-top: 24px;
+            margin-top: 16px;
             padding-bottom: 10px;
             border-bottom: 1px solid #e5e5e5;
             line-height: 22px;
@@ -348,8 +335,8 @@ export default {
       display: flex;
       .barmodel {
         margin: 0 20px;
-        &:hover{
-          cursor:pointer;
+        &:hover {
+          cursor: pointer;
         }
         span {
           font-weight: 700;
@@ -387,45 +374,6 @@ export default {
         img {
           width: 100%;
           height: 100%;
-        }
-      }
-      // 登录注册页(未登录)
-      .lregister {
-        width: 230px;
-        height: 240px;
-        background-color: #ffffff;
-        border: 1px solid #e5e5e5;
-        .defalut {
-          width: 100%;
-          padding-top: 30px;
-          // 头像
-          .defaultimg {
-            margin: 0 auto 4px;
-            text-align: center;
-            img {
-              width: 55px;
-              height: 55px;
-              border-radius: 50%;
-              border: 4px solid #e5e5e5;
-            }
-          }
-          .pmsg {
-            text-align: center;
-            font-size: 16px;
-            color: #222;
-          }
-          .btnlogin {
-            width: 118px;
-            margin: 10px auto 15px;
-            line-height: 38px;
-            color: #333;
-            text-align: center;
-            border: 1px solid #e5e5e5;
-            border-radius: 40px;
-            &:hover {
-              cursor: pointer;
-            }
-          }
         }
       }
     }
