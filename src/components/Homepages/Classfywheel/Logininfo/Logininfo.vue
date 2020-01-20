@@ -16,7 +16,7 @@
           <span>立即登录</span>
         </div>
       </div>
-      <!-- 登录状态下显示的用户信息 -->
+      <!-- 登录状态下显示的用户信息(已登录状态) -->
       <div class="defalut login-after-info" v-else>
         <!-- 设置按钮 -->
         <div class="info-settings">
@@ -87,7 +87,7 @@ export default {
     // 获取用户名
     if (localStorage.getItem("userinfo")) {
       this.users = JSON.parse(localStorage.getItem("userinfo"));
-      console.log(this.users);
+      // console.log(this.users);
     }
   },
   watch: {},

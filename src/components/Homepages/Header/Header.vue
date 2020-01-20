@@ -7,9 +7,9 @@
           <Icon type="md-pin" size="16" />
           <span>{{city}}</span>
         </div>
-        <div class="changecity" @click="goTocity">切换城市</div>
+        <div class="changecity" @click="$goto('/city')">切换城市</div>
         <!-- 附近城市 -->
-        <div class="nearcity">
+        <div class="nearcity" v-if="nearcitys.length > 0">
           [
           <span
             v-for="item in nearcitys.slice(0,3)"
@@ -18,6 +18,7 @@
           >{{item.type}}</span>
           ]
         </div>
+        <div class="nearcity" v-else>[定位中...]</div>
         <!-- 登录注册按钮（插槽） -->
         <div class="login flex" v-if="users === ''">
           <span class="splogin" @click="$goto('/login')">立即登录</span>
@@ -124,7 +125,7 @@ export default {
       this.$api
         .getCitymain(this.$store.state.citys)
         .then(res => {
-          if (res.code === 200) {
+          if (res.code === 200 && res.data.areas.length > 0) {
             this.nearcitys = res.data.areas;
           }
         })
@@ -136,8 +137,6 @@ export default {
     changeCity(val) {
       this.$store.state.citys = val;
     },
-    // 跳转定位主页面
-    goTocity() {},
     // 退出按钮
     edit() {
       this.users = "";

@@ -1,8 +1,9 @@
 export default {
     user: '',
-    citys:'',
+    // 接收页面头部城市参数
+    citys: '',
     // 搜索历史
-    sHistory:[],
+    sHistory: [],
     // 接收搜索建议的数组
-    searchS:[]
+    searchS: []
 }
