@@ -5,5 +5,7 @@ export default {
     // 搜索历史
     sHistory: [],
     // 接收搜索建议的数组
-    searchS: []
+    searchS: [],
+    //最近访问城市的数组
+    recentCity: []
 }

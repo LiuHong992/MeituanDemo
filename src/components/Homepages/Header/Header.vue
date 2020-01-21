@@ -198,7 +198,7 @@ export default {
         margin: auto 6px;
         padding: 0 1px;
         line-height: 15px;
-        border: 1px solid darkgray;
+        border: 1px solid #E5E5E5;
         &:hover {
           cursor: pointer;
           color: #fe8c00;
