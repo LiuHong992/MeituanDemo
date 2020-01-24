@@ -158,6 +158,7 @@ export default {
       showImg: true,
       // 轮播图上方导航栏文字变色参数
       flags: false,
+      // 控制轮播图上方导航栏文字的颜色显示参数
       num: 0
     };
   },
@@ -192,6 +193,7 @@ export default {
         }
       }, 10);
     },
+    // 给定义的参数num赋值index（下标）使颜色的显示一一对应
     changeS(idx) {
       this.num = idx;
       this.flags = true;

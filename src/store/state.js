@@ -7,5 +7,5 @@ export default {
     // 接收搜索建议的数组
     searchS: [],
     //最近访问城市的数组
-    recentCity: []
+    recentCity: [],
 }

@@ -4,7 +4,18 @@
     <div class="searchcontent flex searchbottom">
       <!-- 美团logo -->
       <div class="logos flex">
-        <img src="//s0.meituan.net/bs/fe-web-meituan/fa5f0f0/img/logo.png" alt />
+        <img src="//s0.meituan.net/bs/fe-web-meituan/fa5f0f0/img/logo.png" @click="$goto('/')" alt />
+        <!-- 隐藏的分类栏（在搜索结果页面显示） -->
+        <div class="hiddenclassfy flex" v-if="nums === 1">
+          <span>全部分类</span>
+          <div class="downs"></div>
+          <div class="hiddencontent">
+            <div class="empty-nav"></div>
+            <div v-for="item in menus" :key="item.id">
+              <span>{{item.name}}</span>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- 搜索框 -->
       <div class="searchs">
@@ -28,11 +39,9 @@
               </div>
               <!-- 搜索历史显示 -->
               <div class="shistorydown flex">
-                <div
-                  class="historymodel"
-                  v-for="item in $store.state.sHistory"
-                  :key="item.id"
-                ><span @click="goToresult(item)">{{item}}</span></div>
+                <div class="historymodel" v-for="item in $store.state.sHistory" :key="item.id">
+                  <span @click="goToresult(item)">{{item}}</span>
+                </div>
               </div>
             </div>
             <!-- 热门搜索 -->
@@ -73,8 +82,18 @@ export default {
       // 接收热门搜索数组
       hotplaces: [],
       // 搜索建议数组
-      searchS:[]
+      searchS: []
     };
+  },
+  props: {
+    menus: {
+      type: Array,
+      default: () => []
+    },
+    nums: {
+      type: Number,
+      default: 0
+    }
   },
   components: {},
   methods: {
@@ -107,7 +126,7 @@ export default {
           "searchhistory",
           JSON.stringify(this.$store.state.sHistory)
         );
-        this.goToresult(this.value)
+        this.goToresult(this.value);
       } else {
         this.$Message.info("请输入想搜索的内容");
         this.value = "";
@@ -133,14 +152,18 @@ export default {
     },
     // 搜索建议
     searchSuggest() {
-       setTimeout(() => {
-      this.$api.Searchsuggest(this.$store.state.citys,this.value).then(res => {
-        if(res.code === 200){
-        this.searchS = res.data.top
-        }
-      }).catch(err => {
-        console.log(err);
-      })},500) 
+      setTimeout(() => {
+        this.$api
+          .Searchsuggest(this.$store.state.citys, this.value)
+          .then(res => {
+            if (res.code === 200) {
+              this.searchS = res.data.top;
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }, 500);
     },
     // 点击搜索建议跳转商铺详情页面
     goTosearch(items) {
@@ -152,27 +175,28 @@ export default {
     }
   },
   mounted() {
+    // 将存储在localStorage中的搜索历史存入Vuex中的sHistory中
     if (localStorage.getItem("searchhistory")) {
       this.$store.state.sHistory = JSON.parse(
         localStorage.getItem("searchhistory")
       );
     }
     setTimeout(() => {
-      if(this.$store.state.citys !== ""){
-      this.getHotplace();
+      if (this.$store.state.citys !== "") {
+        this.getHotplace();
       }
     }, 200),
-    // 节流对输入框的值进行监听
-    this.$watch(
-      "value",
-      this.$utils.throttle(() => {
-        if (this.value === "") {
-          this.searchS = [];
-        } else {
-          this.searchSuggest()
-        }
-      }, 200)
-    );
+      // 节流对输入框的值进行监听
+      this.$watch(
+        "value",
+        this.$utils.throttle(() => {
+          if (this.value === "") {
+            this.searchS = [];
+          } else {
+            this.searchSuggest();
+          }
+        }, 200)
+      );
   },
   watch: {},
   computed: {}
@@ -184,7 +208,7 @@ export default {
   width: 100%;
   min-width: 1190px;
   background-color: white;
-  box-shadow: 0px 2px 27px rgba(0,0,0,.1);
+  box-shadow: 0px 2px 27px rgba(0, 0, 0, 0.1);
   .searchcontent {
     width: 1190px;
     height: 157px;
@@ -197,14 +221,93 @@ export default {
       img {
         width: 126px;
         height: 46px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      // 隐藏的分类盒子
+      .hiddenclassfy {
+        position: relative;
+        height: 25px;
+        padding: 3px 13px 3px 4px;
+        margin-top: 15px;
+        margin-left: 14px;
+        border: 1px solid #e5e5e5;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #999;
+        &:hover {
+          cursor: pointer;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+          box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+          .downs {
+            transform: rotate(-135deg);
+            bottom: 8px;
+          }
+          .hiddencontent {
+            display: block;
+            cursor: default;
+          }
+        }
+        .downs {
+          position: absolute;
+          right: 5px;
+          bottom: 10px;
+          width: 5px;
+          height: 5px;
+          border-bottom: 1px solid #999;
+          border-right: 1px solid #999;
+          transform: rotate(45deg);
+          transition: all 0.25s;
+        }
+        // 隐藏盒子内容层
+        .hiddencontent {
+          display: none;
+          position: absolute;
+          left: -1px;
+          top: 24px;
+          z-index: 99;
+          // width: 184px;
+          padding: 15px 40px 12px 10px;
+          border: 1px solid #e5e5e5;
+          background-color: #fff;
+          border-bottom-left-radius: 2px;
+          border-bottom-right-radius: 2px;
+          box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+          // 空白边框
+          .empty-nav {
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 65px;
+            height: 3px;
+            background-color: #fff;
+          }
+          div {
+            width: 132px;
+            font-size: 12px;
+            line-height: 2.4;
+            color: #666;
+            span {
+              display: inline-block;
+              &:hover {
+                cursor: pointer;
+                color: #fe8c00;
+              }
+            }
+          }
+        }
       }
     }
     // 搜索框
     .searchs {
+      position: absolute;
+      left: 32%;
       width: 550px;
       height: 95px;
+      z-index: 999;
       padding-top: 28px;
-      margin-left: 53px;
       .searchtop {
         position: relative;
         width: 100%;
@@ -224,7 +327,7 @@ export default {
           position: absolute;
           top: 40px;
           left: 0;
-          z-index:99;
+          z-index: 99;
           width: 470px;
           padding: 10px;
           background-color: white;
@@ -248,7 +351,7 @@ export default {
             .shistorydown {
               flex-wrap: wrap;
               .historymodel {
-                color:#666;
+                color: #666;
                 margin-right: 10px;
                 &:hover {
                   cursor: pointer;
@@ -271,19 +374,19 @@ export default {
             }
           }
           // 搜索建议框
-          .searchmodel{
+          .searchmodel {
             width: 100%;
             font-size: 12px;
-            span{
-              &:hover{
+            span {
+              &:hover {
                 cursor: pointer;
-                  color: #fe8c00;
+                color: #fe8c00;
               }
             }
           }
-          .doing{
-            font-size:12px;
-            color:#999;
+          .doing {
+            font-size: 12px;
+            color: #999;
           }
         }
         .searchbtn {

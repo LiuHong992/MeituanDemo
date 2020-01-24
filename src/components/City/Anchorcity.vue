@@ -84,6 +84,7 @@ export default {
     }
   },
   mounted() {
+    // 热门城市高亮
     setTimeout(() => {
       if (this.hotcity.length > 0) {
         this.cityesArr.map(item => {
