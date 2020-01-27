@@ -172,6 +172,7 @@ export default {
     // 点击搜索历史跳转搜索结果页面
     goToresult(item0) {
       this.$router.push({ name: "searchresult", query: { keyword: item0 } });
+      this.$router.go(0);
     }
   },
   mounted() {
