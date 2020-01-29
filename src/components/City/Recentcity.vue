@@ -24,6 +24,7 @@ export default {
   methods: {
     changeCity(items) {
       this.$store.state.citys = items;
+      sessionStorage.setItem("locations", this.$store.state.citys);
       this.$router.push("/");
     }
   },

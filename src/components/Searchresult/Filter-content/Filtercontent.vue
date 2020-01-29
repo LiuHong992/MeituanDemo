@@ -131,7 +131,7 @@ export default {
             position: absolute;
             top: 24px;
             left: -5px;
-            z-index: 99;
+            z-index: 100;
             min-width: 530px;
             max-height: 300px;
             overflow: auto;

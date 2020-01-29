@@ -13,7 +13,12 @@
         <h3>{{$store.state.citys}}{{keywords}}</h3>
       </div>
       <!-- 搜索详情页内容层头部 -->
-      <searchcontenttop :suggestArr="suggestArr" :areasArr="areasArr" :menus="menus" :keywords="keywords"></searchcontenttop>
+      <searchcontenttop
+        :suggestArr="suggestArr"
+        :areasArr="areasArr"
+        :menus="menus"
+        :keywords="keywords"
+      ></searchcontenttop>
     </div>l
     <!-- 底部 -->
     <footers></footers>
@@ -97,15 +102,44 @@ export default {
           .Products(items.name, this.$store.state.citys)
           .then(res => {
             if (res.code === 200) {
-              // console.log(res);
               this.suggestArr.push(res.data);
+              this.$store.state.shopArr.push(res.data.product);
             }
           })
           .catch(err => {
             console.log(err);
           });
       });
-      console.log(this.suggestArr);
+      // this.$store.state.shopArr = this.suggestArr
+      // console.log(this.suggestArr);
+      // console.log(this.$store.state.shopArr);
+    },
+    // 页面滚动距离
+    initHeight() {
+      // 设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离 (被卷曲的高度)
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      let num = 0;
+      if (scrollTop > 218 && scrollTop < this.suggestArr.length * 166 + 218) {
+        num = parseInt((scrollTop - 218) / 166);
+      }
+      if (scrollTop > this.suggestArr.length * 166 + 218) {
+        num = this.suggestArr.length;
+        // console.log(num);
+      }
+      // console.log(num);
+      // if (num > this.suggestArr.length) {
+      //   num = this.suggestArr.length;
+      // } else {
+      this.$store.state.location = Number(
+        this.suggestArr[num].product.location
+      );
+      // }
+      // console.log(this.$store.state.location);
+      //如果被卷曲的高度大于吸顶元素到顶端位置的距离
+      // this.isFixed = scrollTop > this.offsetTop ? true : false;
     }
   },
   mounted() {
@@ -116,7 +150,11 @@ export default {
         this.getNearcity();
       }
     }, 350);
+    // 获取页面数据
     this.searchSuggest();
+    setTimeout(() => {
+      window.addEventListener("scroll", this.initHeight);
+    }, 200);
   },
   watch: {},
   computed: {}

@@ -1,5 +1,5 @@
 <template>
-  <div class="searchcontenttop">
+  <div class="searchcontenttop flex">
     <!-- 左边内容层 -->
     <div class="left-content">
       <!-- 选择器（过滤器） -->
@@ -31,7 +31,7 @@
         <!-- 具体内容 -->
         <div class="suggest-contents">
           <!-- 内容模板 -->
-          <div class="suggest-content-model flex" v-for="(item,index) in products" :key="item.id">
+          <div class="suggest-content-model flex" v-for="(item,index) in products" :key="index">
             <!-- 结果图片 -->
             <div class="content-image">
               <img :src="item.photos[0].url" alt v-if="item.photos.length>0" />
@@ -57,7 +57,8 @@
                   <span class="tags">{{item.type.split(";")[2]}}</span>|
                   <span class="address">{{item.adname}}</span>
                 </span>
-                <span>{{item.address}}</span>
+                <span v-if="item.address.length === 0">暂无地址信息</span>
+                <span v-else>{{item.address}}</span>
                 <!-- 查看地图 -->
                 <div class="lookmap flex">
                   <img
@@ -86,12 +87,17 @@
       </div>
     </div>
     <!-- 右边内容层 -->
-    <div class="right-content"></div>
+    <div class="right-content">
+      <!-- 地图显示 -->
+      <!-- <div class="maps"></div> -->
+      <maps class="maps" :suggestArr="suggestArr"></maps>
+    </div>
   </div>
 </template>
 
 <script>
 import filtercontent from "./Filter-content/Filtercontent";
+import maps from "./Maps/Maps";
 export default {
   data() {
     return {};
@@ -115,7 +121,8 @@ export default {
     }
   },
   components: {
-    filtercontent
+    filtercontent,
+    maps
   },
   methods: {},
   mounted() {},
@@ -124,13 +131,22 @@ export default {
     products() {
       let productsArr = [];
       this.suggestArr.map(item => {
-        item.product.biz_ext.rating = Number(item.product.biz_ext.rating);
-        if (item.product.biz_ext.lowest_price) {
-          item.product.biz_ext.lowest_price = Number(
-            item.product.biz_ext.lowest_price
-          ).toFixed(0);
+        // console.log(item);
+        if (item.more.length > 0) {
+          if (item.product.biz_ext.rating) {
+            item.product.biz_ext.rating = Number(item.product.biz_ext.rating);
+          } else {
+            item.product.biz_ext.rating = 0;
+          }
+          if (item.product.biz_ext.lowest_price) {
+            item.product.biz_ext.lowest_price = Number(
+              item.product.biz_ext.lowest_price
+            ).toFixed(0);
+          }
+          productsArr.push(item.product);
+        } else {
+          // productsArr.push(item.more[0]);
         }
-        productsArr.push(item.product);
       });
       return productsArr;
     }
@@ -330,6 +346,13 @@ export default {
   }
   // 右边内容部分
   .right-content {
+    width: 230px;
+    margin-left: 10px;
+    .maps {
+      position: static;
+      top: 0;
+      margin-top: 10px;
+    }
   }
 }
 </style>

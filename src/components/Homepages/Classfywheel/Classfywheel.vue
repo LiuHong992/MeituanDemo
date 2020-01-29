@@ -282,7 +282,7 @@ export default {
       position: absolute;
       left: 230px;
       top: 60px;
-      z-index: 99;
+      z-index: 98;
       width: 400px;
       height: 416px;
       background-color: #fff;

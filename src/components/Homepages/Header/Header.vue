@@ -113,6 +113,11 @@ export default {
         .then(res => {
           if (res.code === 200) {
             this.$store.state.citys = JSON.parse(res.data).city.slice(0, -1);
+            if (sessionStorage.getItem("locations")) {
+              sessionStorage.setItem("locations", this.$store.state.citys);
+            } else {
+              sessionStorage.setItem("locations", "");
+            }
             this.getNearcity();
           }
         })
@@ -141,6 +146,7 @@ export default {
     edit() {
       this.users = "";
       localStorage.setItem("userinfo", this.users);
+      sessionStorage.setItem("locations", this.users);
       // 跳转后刷新页面
       this.$router.go(0);
     },
@@ -154,8 +160,13 @@ export default {
     }
   },
   mounted() {
-    if (this.$store.state.citys === "") {
+    if (
+      this.$store.state.citys === "" &&
+      sessionStorage.getItem("locations") === ""
+    ) {
       this.getPosition();
+    } else {
+      this.$store.state.citys = sessionStorage.getItem("locations");
     }
     // 如果是从定位的页面选择了城市过来就对附近城市进行重新请求
     if (this.$store.state.citys !== "") {
@@ -198,7 +209,7 @@ export default {
         margin: auto 6px;
         padding: 0 1px;
         line-height: 15px;
-        border: 1px solid #E5E5E5;
+        border: 1px solid #e5e5e5;
         &:hover {
           cursor: pointer;
           color: #fe8c00;
@@ -294,7 +305,7 @@ export default {
           position: absolute;
           top: 40px;
           right: 0;
-          z-index: 99;
+          z-index: 100;
           width: 1200px;
           padding: 30px 36px 36px 47px;
           background-color: white;

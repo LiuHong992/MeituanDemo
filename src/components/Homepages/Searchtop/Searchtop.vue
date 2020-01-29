@@ -172,7 +172,9 @@ export default {
     // 点击搜索历史跳转搜索结果页面
     goToresult(item0) {
       this.$router.push({ name: "searchresult", query: { keyword: item0 } });
-      this.$router.go(0);
+      setTimeout(() => {
+        this.$router.go(0);
+      }, 20);
     }
   },
   mounted() {
@@ -307,7 +309,7 @@ export default {
       left: 32%;
       width: 550px;
       height: 95px;
-      z-index: 999;
+      z-index: 99;
       padding-top: 28px;
       .searchtop {
         position: relative;

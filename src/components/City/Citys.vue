@@ -104,6 +104,7 @@ export default {
     // 切换城市返回主页
     changeCity(items) {
       this.$store.state.citys = items;
+      sessionStorage.setItem("locations", this.$store.state.citys);
       this.$router.push("/");
       if (!localStorage.getItem("recentCitys")) {
         localStorage.setItem(
