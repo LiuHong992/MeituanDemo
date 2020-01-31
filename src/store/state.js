@@ -9,7 +9,7 @@ export default {
     //最近访问城市的数组
     recentCity: [],
     // 店铺详情页中地图定位的location
-    location: '',
+    location: ['66.45,45.66'],
     // 店铺详情页获取到的数据
     shopArr: []
 }

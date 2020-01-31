@@ -116,7 +116,7 @@ export default {
             if (sessionStorage.getItem("locations")) {
               sessionStorage.setItem("locations", this.$store.state.citys);
             } else {
-              sessionStorage.setItem("locations", "");
+              // sessionStorage.setItem("locations", "成都");
             }
             this.getNearcity();
           }
@@ -164,6 +164,8 @@ export default {
       this.$store.state.citys === "" &&
       sessionStorage.getItem("locations") === ""
     ) {
+      this.getPosition();
+    } else if (!sessionStorage.getItem("locations")) {
       this.getPosition();
     } else {
       this.$store.state.citys = sessionStorage.getItem("locations");

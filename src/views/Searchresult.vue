@@ -88,16 +88,25 @@ export default {
               if (this.$store.state.citys !== "") {
                 this.getMaininfo();
               }
+              //   if (this.$store.state.shopArr[0].location) {
+              //     this.$store.state.location = this.$store.state.shopArr[0].location.split(
+              //       ","
+              //     );
+              //   }
             }
           })
           .catch(err => {
             console.log(err);
           });
+        console.log(this.suggestArr);
+        console.log(this.$store.state.shopArr);
+        console.log(this.$store.state.shopArr[0].location);
+        console.log(this.$store.state.shopArr[0].location.split(","));
       }, 500);
     },
     // 展示数据方法
     getMaininfo() {
-      this.searchS.map(items => {
+      this.searchS.map((items, index) => {
         this.$api
           .Products(items.name, this.$store.state.citys)
           .then(res => {
@@ -110,36 +119,43 @@ export default {
             console.log(err);
           });
       });
+      // console.log(this.$store.state.shopArr);
       // this.$store.state.shopArr = this.suggestArr
-      // console.log(this.suggestArr);
       // console.log(this.$store.state.shopArr);
     },
     // 页面滚动距离
     initHeight() {
+      // console.log(this.suggestArr);
       // 设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离 (被卷曲的高度)
       var scrollTop =
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
       let num = 0;
-      if (scrollTop > 218 && scrollTop < this.suggestArr.length * 166 + 218) {
+      if (scrollTop > 318 && scrollTop < this.suggestArr.length * 166 + 218) {
         num = parseInt((scrollTop - 218) / 166);
       }
       if (scrollTop > this.suggestArr.length * 166 + 218) {
         num = this.suggestArr.length;
-        // console.log(num);
       }
       // console.log(num);
-      // if (num > this.suggestArr.length) {
-      //   num = this.suggestArr.length;
+      // if (this.$store.state.location.length > 0) {
+      if (
+        (this.$store.state.location = this.suggestArr[num].product.location)
+      ) {
+        this.$store.state.location = this.suggestArr[
+          num
+        ].product.location.split(",");
+      } else {
+        this.$store.state.location = ["123.123", "45.56"];
+      }
       // } else {
-      this.$store.state.location = Number(
-        this.suggestArr[num].product.location
-      );
+      //   this.$store.state.location = this.suggestArr[0].product.location.split(
+      //     ","
+      //   );
       // }
+
       // console.log(this.$store.state.location);
-      //如果被卷曲的高度大于吸顶元素到顶端位置的距离
-      // this.isFixed = scrollTop > this.offsetTop ? true : false;
     }
   },
   mounted() {
@@ -152,9 +168,10 @@ export default {
     }, 350);
     // 获取页面数据
     this.searchSuggest();
-    setTimeout(() => {
-      window.addEventListener("scroll", this.initHeight);
-    }, 200);
+    // setTimeout(() => {
+    //   this.initHeight();
+    // }, 300);
+    window.addEventListener("scroll", this.initHeight);
   },
   watch: {},
   computed: {}

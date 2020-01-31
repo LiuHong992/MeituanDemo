@@ -110,6 +110,7 @@ export default {
       this.offsetTop = document.querySelector("#boxFixed").offsetTop;
     });
     setTimeout(() => {
+      // console.log(this.$store.state.location);
       //   console.log(this.suggestArr);
       this.getLocation(this.$store.state.location);
     }, 1500);

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <Backtop> -->
-      <router-view></router-view>
+    <router-view></router-view>
     <!-- </Backtop> -->
   </div>
 </template>
@@ -10,6 +10,11 @@
 export default {
   components: {
     // Backtop
+  },
+  mounted() {
+    this.$router.afterEach((to, from, next) => {
+      window.scrollTo(0, 0);
+    });
   }
 };
 </script>
@@ -20,29 +25,29 @@ body {
   margin: 0;
   padding: 0;
 }
-.flex{
+.flex {
   display: flex;
 }
-.between{
+.between {
   justify-content: space-between;
 }
-.around{
+.around {
   justify-content: space-around;
 }
-.textover{
+.textover {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.textalign{
+.textalign {
   text-align: center;
 }
 // 顶部搜索框padding
-.searchbottom{
+.searchbottom {
   padding-bottom: 35px;
 }
 // 居中显示
-.center{
+.center {
   margin: 0 auto;
 }
 </style>
