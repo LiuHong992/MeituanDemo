@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg">
     <!-- 头部 -->
     <headers></headers>
     <!-- 搜索框 -->
@@ -41,7 +41,8 @@ export default {
       // 搜索建议数组
       searchS: [],
       // 接收搜索出来的数据的数组
-      suggestArr: []
+      suggestArr: [],
+      num: 0
     };
   },
   components: {
@@ -56,7 +57,6 @@ export default {
           if (res.code === 200) {
             this.menus = res.data.menu;
             this.keywords = this.$route.query.keyword;
-            // console.log(this.keywords);
           }
         })
         .catch(err => {
@@ -88,20 +88,12 @@ export default {
               if (this.$store.state.citys !== "") {
                 this.getMaininfo();
               }
-              //   if (this.$store.state.shopArr[0].location) {
-              //     this.$store.state.location = this.$store.state.shopArr[0].location.split(
-              //       ","
-              //     );
-              //   }
             }
           })
           .catch(err => {
             console.log(err);
           });
-        console.log(this.suggestArr);
         console.log(this.$store.state.shopArr);
-        console.log(this.$store.state.shopArr[0].location);
-        console.log(this.$store.state.shopArr[0].location.split(","));
       }, 500);
     },
     // 展示数据方法
@@ -131,31 +123,31 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      let num = 0;
-      if (scrollTop > 318 && scrollTop < this.suggestArr.length * 166 + 218) {
-        num = parseInt((scrollTop - 218) / 166);
+      // let num = 0;
+      if (scrollTop > 481 && scrollTop < this.suggestArr.length * 166 + 218) {
+        // console.log(scrollTop);
+        this.num = parseInt((scrollTop - 481) / 166);
+        if (this.num > this.suggestArr.length) {
+          this.num = this.suggestArr.length;
+        }
       }
-      if (scrollTop > this.suggestArr.length * 166 + 218) {
-        num = this.suggestArr.length;
-      }
-      // console.log(num);
+      // console.log(this.num);
       // if (this.$store.state.location.length > 0) {
       if (
-        (this.$store.state.location = this.suggestArr[num].product.location)
+        (this.$store.state.location = this.suggestArr[this.num].product.location)
       ) {
         this.$store.state.location = this.suggestArr[
-          num
+          this.num
         ].product.location.split(",");
-      } else {
-        this.$store.state.location = ["123.123", "45.56"];
       }
+      //  else {
+      //   this.$store.state.location = ["123.123", "45.56"];
+      // }
       // } else {
       //   this.$store.state.location = this.suggestArr[0].product.location.split(
       //     ","
       //   );
       // }
-
-      // console.log(this.$store.state.location);
     }
   },
   mounted() {
@@ -168,10 +160,10 @@ export default {
     }, 350);
     // 获取页面数据
     this.searchSuggest();
-    // setTimeout(() => {
-    //   this.initHeight();
-    // }, 300);
+    // 做好判断，当请求到数据再进行对页面滚动的监听
+    // if (this.suggestArr.length > 0) {
     window.addEventListener("scroll", this.initHeight);
+    // }
   },
   watch: {},
   computed: {}

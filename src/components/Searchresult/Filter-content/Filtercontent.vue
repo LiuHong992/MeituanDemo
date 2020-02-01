@@ -62,10 +62,6 @@ export default {
       type: String,
       default: ""
     }
-    // keywords: {
-    //   type: String,
-    //   default: ""
-    // }
   },
   components: {},
   methods: {

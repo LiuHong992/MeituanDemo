@@ -25,6 +25,9 @@ body {
   margin: 0;
   padding: 0;
 }
+.bg{
+  background-color: #F8F8F8;
+}
 .flex {
   display: flex;
 }

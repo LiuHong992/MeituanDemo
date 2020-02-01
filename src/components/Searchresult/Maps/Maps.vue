@@ -22,12 +22,6 @@ export default {
       offsetTop: 218
     };
   },
-  props: {
-    suggestArr: {
-      type: Array,
-      default: () => []
-    }
-  },
   components: {},
   props: {},
   methods: {
@@ -111,7 +105,6 @@ export default {
     });
     setTimeout(() => {
       // console.log(this.$store.state.location);
-      //   console.log(this.suggestArr);
       this.getLocation(this.$store.state.location);
     }, 1500);
   },

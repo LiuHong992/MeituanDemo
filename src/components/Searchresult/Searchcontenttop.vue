@@ -5,7 +5,7 @@
       <!-- 选择器（过滤器） -->
       <div class="filter-box">
         <!-- 分类选择器 -->
-        <filtercontent :filters="menus" :lables="'分类'" :keywords="keywords"></filtercontent>
+        <filtercontent :filters="menus" :lables="'分类'"></filtercontent>
         <!-- 区域选择器 -->
         <filtercontent class="areas" :filters="areasArr" :lables="'区域'"></filtercontent>
       </div>
@@ -33,14 +33,14 @@
           <!-- 内容模板 -->
           <div class="suggest-content-model flex" v-for="(item,index) in products" :key="index">
             <!-- 结果图片 -->
-            <div class="content-image">
+            <div class="content-image" @click="$goto('details',item,this.keywords)">
               <img :src="item.photos[0].url" alt v-if="item.photos.length>0" />
               <!-- 数据排序 -->
               <span class="rating textalign">{{index+1}}</span>
             </div>
             <!-- 右边具体内容 -->
             <div class="right-contents">
-              <h3>{{item.name}}</h3>
+              <h3 @click="$goto('details',item,this.keywords)">{{item.name}}</h3>
               <!-- 第二行内容 -->
               <div class="right-content-second common-right flex">
                 <Rate class="ratings" allow-half disabled v-model="item.biz_ext.rating" />
@@ -89,8 +89,9 @@
     <!-- 右边内容层 -->
     <div class="right-content">
       <!-- 地图显示 -->
-      <!-- <div class="maps"></div> -->
-      <maps class="maps" :suggestArr="suggestArr"></maps>
+      <maps class="maps"></maps>
+      <!-- 猜你喜欢 -->
+      <guesslike :keywords="keywords" class="guesslikes"></guesslike>
     </div>
   </div>
 </template>
@@ -98,15 +99,14 @@
 <script>
 import filtercontent from "./Filter-content/Filtercontent";
 import maps from "./Maps/Maps";
+import guesslike from "./Guesslike/Guesslike";
 export default {
   data() {
-    return {};
+    return {
+      // kword: ""
+    };
   },
   props: {
-    keywords: {
-      type: String,
-      default: ""
-    },
     menus: {
       type: Array,
       default: () => []
@@ -118,14 +118,22 @@ export default {
     suggestArr: {
       type: Array,
       default: () => []
+    },
+    keywords: {
+      type: String,
+      default: ""
     }
   },
   components: {
     filtercontent,
-    maps
+    maps,
+    guesslike
   },
   methods: {},
-  mounted() {},
+  mounted() {
+    // this.kword = this.keywords
+    // console.log(this.kword);
+  },
   watch: {},
   computed: {
     products() {
@@ -145,7 +153,6 @@ export default {
           }
           productsArr.push(item.product);
         } else {
-          // productsArr.push(item.more[0]);
         }
       });
       return productsArr;
@@ -238,9 +245,13 @@ export default {
             width: 220px;
             height: 125px;
             background-color: #f4f4f4;
+            &:hover {
+              cursor: pointer;
+            }
             img {
               width: 100%;
               height: 100%;
+              border-radius: 4px;
             }
             .rating {
               position: absolute;

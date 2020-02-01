@@ -18,7 +18,7 @@
         </div>
       </div>
       <!-- 搜索框 -->
-      <div class="searchs">
+      <div class="searchs" v-if="numD !== 6">
         <div class="searchtop flex">
           <!-- 搜索输入框 -->
           <input
@@ -91,6 +91,10 @@ export default {
       default: () => []
     },
     nums: {
+      type: Number,
+      default: 0
+    },
+    numD: {
       type: Number,
       default: 0
     }
@@ -167,7 +171,10 @@ export default {
     },
     // 点击搜索建议跳转商铺详情页面
     goTosearch(items) {
-      this.$router.push({ name: "details", query: { keyword: items } });
+      this.$router.push({
+        name: "details",
+        query: { keyword: items }
+      });
     },
     // 点击搜索历史跳转搜索结果页面
     goToresult(item0) {
