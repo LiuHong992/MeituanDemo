@@ -47,7 +47,7 @@
       <div class="comment-rec-right">
         <!-- 高德地图 -->
         <mapss class="comment-map" :shopdetails="shopdetails"></mapss>
-        <guesslike></guesslike>
+        <guesslike :keywords="types"></guesslike>
       </div>
     </div>
   </div>
