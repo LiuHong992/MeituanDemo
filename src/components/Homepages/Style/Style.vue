@@ -87,22 +87,14 @@
       let a = 0
       this.upbars.map((item,index) => {
         // console.log(this.$store.state.citys)
-        // console.log(item.searchs)
-        // setTimeout(() => {
          this.$api.Result(this.$store.state.citys,item.searchs).then(res => {
           //  console.log(res)
-          // console.log(this.styleArr)
-          // if(a === index){
             this.sixinfo = res.data.pois.splice(0,6)
             this.styleArr.push(this.sixinfo)
-          //   a++
-          // }
           }).catch(err => {
           console.log(err)
           })
-        //  },300)
         })
-
     },
     // 鼠标移入时控制数据渲染
     requests(idx) {
@@ -163,9 +155,8 @@
       margin-right:10px;
       font-family:Serif;
     }
-    .rightcont{
-
-    }
+    // .rightcont{
+    // }
   }
   // 下方内容
   .stylescontent{
@@ -181,6 +172,7 @@
       width:33.3%;
       height:314px;
       padding:10px;
+      border-radius: 6px;
       transition: all .5s;
       &:hover{
         cursor: pointer;

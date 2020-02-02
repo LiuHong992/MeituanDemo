@@ -33,14 +33,14 @@
           <!-- 内容模板 -->
           <div class="suggest-content-model flex" v-for="(item,index) in products" :key="index">
             <!-- 结果图片 -->
-            <div class="content-image" @click="$goto('details',item,this.keywords)">
+            <div class="content-image" @click="$goto('details',item,keywords)">
               <img :src="item.photos[0].url" alt v-if="item.photos.length>0" />
               <!-- 数据排序 -->
               <span class="rating textalign">{{index+1}}</span>
             </div>
             <!-- 右边具体内容 -->
             <div class="right-contents">
-              <h3 @click="$goto('details',item,this.keywords)">{{item.name}}</h3>
+              <h3 @click="$goto('details',item,keywords)">{{item.name}}</h3>
               <!-- 第二行内容 -->
               <div class="right-content-second common-right flex">
                 <Rate class="ratings" allow-half disabled v-model="item.biz_ext.rating" />
@@ -129,7 +129,12 @@ export default {
     maps,
     guesslike
   },
-  methods: {},
+  methods: {
+    // 如果店铺没价格，随机加一个价格
+    getPrices() {
+      return Number(this.$utils.getRandomInt(40, 400));
+    }
+  },
   mounted() {
     // this.kword = this.keywords
     // console.log(this.kword);
@@ -146,13 +151,17 @@ export default {
           } else {
             item.product.biz_ext.rating = 0;
           }
-          if (item.product.biz_ext.lowest_price) {
+          if (
+            item.product.biz_ext.lowest_price &&
+            Number(item.product.biz_ext.lowest_price) !== 0
+          ) {
             item.product.biz_ext.lowest_price = Number(
               item.product.biz_ext.lowest_price
             ).toFixed(0);
+          } else {
+            item.product.biz_ext.lowest_price = this.getPrices();
           }
           productsArr.push(item.product);
-        } else {
         }
       });
       return productsArr;

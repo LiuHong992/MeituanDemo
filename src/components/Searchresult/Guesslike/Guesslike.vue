@@ -6,8 +6,8 @@
     <div class="recommend-list">
       <div
         class="list-model"
-        @click="$goto('details',item,this.keywords)"
-        v-for="(item,index) in $store.state.shopArr"
+        @click="$goto('details',item,keywords)"
+        v-for="(item,index) in shoplist"
         :key="index"
       >
         <div v-if="item.adcode">
@@ -30,9 +30,9 @@
                 />
                 <Rate class="ratings" disabled v-model="ratings" v-else />
               </div>
-              <!-- 评价数量 -->
+              <!-- 具体评分 -->
               <div class="comment-number">
-                <span>{{item.recommend}}人评价</span>
+                <span>{{item.biz_ext.rating}}分</span>
               </div>
             </div>
             <!-- 地点 -->
@@ -64,6 +64,9 @@
 export default {
   data() {
     return {
+      // 接收获取到的推荐商家信息
+      shoplist: [],
+      // 商家信息中没有评分则默认为0
       ratings: 0
     };
   },
@@ -74,8 +77,32 @@ export default {
     }
   },
   components: {},
-  methods: {},
-  mounted() {},
+  methods: {
+    // 获取推荐信息方法
+    getCommond() {
+      this.$api
+        .Result(this.$store.state.citys, this.$store.state.keysword)
+        .then(res => {
+          if (res.code === 200) {
+            res.data.pois.map(item => {
+              if (Number(item.biz_ext.rating) > 4) {
+                item.biz_ext.rating = Number(item.biz_ext.rating);
+                this.shoplist.push(item);
+              }
+            });
+            // console.log(this.shoplist);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.getCommond();
+    }, 350);
+  },
   watch: {},
   computed: {},
   filters: {}

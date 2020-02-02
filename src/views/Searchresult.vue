@@ -57,6 +57,7 @@ export default {
           if (res.code === 200) {
             this.menus = res.data.menu;
             this.keywords = this.$route.query.keyword;
+            this.$store.state.keysword = this.keywords
           }
         })
         .catch(err => {

@@ -12,4 +12,10 @@ export default {
     location: ['104.66995', '29.52278'],
     // 店铺详情页获取到的数据
     shopArr: [],
+    // 存储搜索关键词
+    keysword: '',
+    // 店铺详情的定位location
+    oneLocation: [],
+    // 店铺详情的店铺名
+    shopName: ''
 }

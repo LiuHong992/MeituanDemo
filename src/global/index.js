@@ -7,13 +7,13 @@ Vue.component('headers', Headers)
 Vue.component('searchtop', Searchtop)
 Vue.component('footers', Footers)
     // 封装的跳转方法
-Vue.prototype.$goto = function(path, item, keywords, index = 1) {
-    if (item && keywords) {
+Vue.prototype.$goto = function(path, item, key, index = 1) {
+    if (item && key) {
         this.$router.push({
             name: path,
             query: {
                 items: JSON.stringify(item),
-                key: keywords
+                key: key
             }
         });
     } else if (item) {

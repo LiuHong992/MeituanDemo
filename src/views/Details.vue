@@ -8,14 +8,21 @@
     <div class="breadcrumb">
       <Breadcrumb separator=">">
         <BreadcrumbItem to="/">美团{{keys}}</BreadcrumbItem>
-        <BreadcrumbItem to="/components/breadcrumb">Components</BreadcrumbItem>
-        <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+        <BreadcrumbItem to="/">{{shopdetails.adname}}</BreadcrumbItem>
+        <BreadcrumbItem>{{shopdetails.name}}</BreadcrumbItem>
       </Breadcrumb>
     </div>
+    <!-- 店铺详情 -->
+    <shopinfo :shopdetails="shopdetails"></shopinfo>
+    <!-- 评论推荐 -->
+    <commentrec :types="types" :mores="mores" :shopdetails="shopdetails"></commentrec>
+    <footers></footers>
   </div>
 </template>
 
 <script>
+import shopinfo from "../components/Details/Shopinfo";
+import commentrec from "../components/Details/Commentrec";
 export default {
   data() {
     return {
@@ -23,10 +30,17 @@ export default {
       // 接收从搜索建议传过来的店铺的类型关键字
       keys: "",
       // 判断searchtop组件是店铺详情页的参数
-      numD: 6
+      numD: 6,
+      // 传递到评论推荐的参数
+      types: "",
+      // 传到评论推荐的推荐数组
+      mores: []
     };
   },
-  components: {},
+  components: {
+    shopinfo,
+    commentrec
+  },
   methods: {
     // 如果是从搜索建议中点击的店铺名字过来时则调接口请求一遍数据
     getDetails() {
@@ -35,9 +49,31 @@ export default {
         .then(res => {
           if (res.code === 200) {
             this.keys = res.data.product.type.split(";")[0];
-            // console.log(this.keys);
-            this.shopdetails = res.data;
-            console.log(this.shopdetails);
+            this.shopdetails = res.data.product;
+            this.$store.state.oneLocation = this.shopdetails.location.split(
+              ","
+            );
+            this.$store.state.shopName = this.shopdetails.name;
+            this.mores = res.data.more;
+            this.shopdetails.biz_ext.rating = Number(
+              this.shopdetails.biz_ext.rating
+            );
+            // console.log(this.mores);
+            this.types = this.shopdetails.type.split(";")[0];
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    // 请求店铺的完整信息
+    getAllinfo(names) {
+      this.$api
+        .Products(names, this.$store.state.citys)
+        .then(res => {
+          if (res.code === 200) {
+            this.mores = res.data.more;
+            // console.log(this.mores);
           }
         })
         .catch(err => {
@@ -47,14 +83,18 @@ export default {
   },
   mounted() {
     if (this.$route.query.keyword) {
-      console.log(this.$route.query.keyword);
       this.getDetails();
     } else {
       this.shopdetails = JSON.parse(this.$route.query.items);
-      console.log(this.$route.query.key);
+      this.$store.state.oneLocation = this.shopdetails.location.split(",");
+      this.$store.state.shopName = this.shopdetails.name;
+      // console.log(this.$store.state.oneLocation);
+      setTimeout(() => {
+        this.getAllinfo(this.shopdetails.name);
+      }, 200);
       this.keys = this.$route.query.key;
+      this.types = this.shopdetails.type.split(";")[0];
       console.log(this.shopdetails);
-      console.log(this.keys);
     }
   },
   watch: {},
