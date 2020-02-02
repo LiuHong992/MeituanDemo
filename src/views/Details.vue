@@ -59,6 +59,7 @@ export default {
               this.shopdetails.biz_ext.rating
             );
             // console.log(this.mores);
+            this.$store.state.keysword = this.shopdetails.type.split(";")[0];
             this.types = this.shopdetails.type.split(";")[0];
           }
         })
@@ -88,6 +89,9 @@ export default {
       this.shopdetails = JSON.parse(this.$route.query.items);
       this.$store.state.oneLocation = this.shopdetails.location.split(",");
       this.$store.state.shopName = this.shopdetails.name;
+      // 关键词存储
+      this.$store.state.keysword = this.shopdetails.type.split(";")[0];
+      this.types = this.shopdetails.type.split(";")[0];
       // console.log(this.$store.state.oneLocation);
       setTimeout(() => {
         this.getAllinfo(this.shopdetails.name);

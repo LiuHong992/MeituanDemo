@@ -55,13 +55,10 @@
 
 <script>
 import mapss from "./Comments/Mapss";
-import guesslike from '../Searchresult/Guesslike/Guesslike'
+import guesslike from "../Searchresult/Guesslike/Guesslike";
 export default {
   data() {
-    return {
-      // 推荐商家数组(根据传过来的types进行数据请求)
-      //   recommendArr: []
-    };
+    return {};
   },
   props: {
     types: {
@@ -168,7 +165,7 @@ export default {
     }
     // 右边的高德地图和猜你喜欢
     .comment-rec-right {
-      .comment-map{
+      .comment-map {
         margin-bottom: 20px;
       }
     }
