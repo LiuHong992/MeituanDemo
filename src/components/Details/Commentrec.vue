@@ -23,7 +23,7 @@
           <!-- 推荐店铺列表 -->
           <div class="recommend-list">
             <!-- 推荐店铺模板 -->
-            <div class="recommend-model" v-for="item in mores" :key="item.name">
+            <div class="recommend-model" v-for="(item,index) in mores" :key="index">
               <!-- 商铺名称 -->
               <div class="recommend-name">
                 <span>{{item.name}}</span>

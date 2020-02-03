@@ -78,6 +78,10 @@ export default {
   },
   components: {},
   methods: {
+    // 如果店铺没价格，随机加一个价格
+    getPrices() {
+      return Number(this.$utils.getRandomInt(40, 400));
+    },
     // 获取推荐信息方法
     getCommond() {
       this.$api
@@ -87,6 +91,16 @@ export default {
             res.data.pois.map(item => {
               if (Number(item.biz_ext.rating) > 4) {
                 item.biz_ext.rating = Number(item.biz_ext.rating);
+                if (
+                  item.biz_ext.lowest_price &&
+                  Number(item.biz_ext.lowest_price) !== 0
+                ) {
+                  item.biz_ext.lowest_price = Number(
+                    item.biz_ext.lowest_price
+                  ).toFixed(0);
+                } else {
+                  item.biz_ext.lowest_price = this.getPrices();
+                }
                 this.shoplist.push(item);
               }
             });

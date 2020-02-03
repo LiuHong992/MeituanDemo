@@ -94,7 +94,7 @@ export default {
           .catch(err => {
             console.log(err);
           });
-        console.log(this.$store.state.shopArr);
+        // console.log(this.$store.state.shopArr);
       }, 500);
     },
     // 展示数据方法

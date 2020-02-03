@@ -98,7 +98,7 @@ export default {
       }, 200);
       this.keys = this.$route.query.key;
       this.types = this.shopdetails.type.split(";")[0];
-      console.log(this.shopdetails);
+      // console.log(this.shopdetails);
     }
   },
   watch: {},
