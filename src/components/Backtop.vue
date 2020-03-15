@@ -1,22 +1,9 @@
 <template>
   <div class="wrap">
     <!-- 回到顶部组件 -->
-    <slot></slot>
-    <template>
-      <el-backtop target=".wrap" :bottom="100">
-        <div
-          style="{
-        height: 100%;
-        width: 100%;
-        background-color: #f2f5f6;
-        box-shadow: 0 0 6px rgba(0,0,0, .12);
-        text-align: center;
-        line-height: 40px;
-        color: #1989fa;
-      }"
-        >UP</div>
-      </el-backtop>
-    </template>
+    <BackTop :height="400" :bottom="50">
+      <div class="top">UP</div>
+    </BackTop>
   </div>
 </template>
 
@@ -34,8 +21,11 @@ export default {
 </script>
 
 <style scoped lang='scss'>
-.wrap {
-  height: 100vh;
-  overflow-x: hidden;
+.top {
+  padding: 10px;
+  background: rgba(0, 153, 229, 0.7);
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
 }
 </style>

@@ -1,15 +1,14 @@
 <template>
   <div>
-    <!-- <Backtop> -->
-    <router-view></router-view>
-    <!-- </Backtop> -->
+    <Backtop></Backtop>
+    <router-view />
   </div>
 </template>
 <script>
-// import Backtop from "../src/components/Backtop";
+import Backtop from "../src/components/Backtop";
 export default {
   components: {
-    // Backtop
+    Backtop
   },
   mounted() {
     this.$router.afterEach((to, from, next) => {
@@ -25,8 +24,8 @@ body {
   margin: 0;
   padding: 0;
 }
-.bg{
-  background-color: #F8F8F8;
+.bg {
+  background-color: #f8f8f8;
 }
 .flex {
   display: flex;
